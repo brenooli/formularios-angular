@@ -1,1 +1,86 @@
-<p>data-form works!</p>
+<form [formGroup]="formulario">
+  <div class="form-group">
+    <div class="col-sm-12">
+      <label for="nome" class="form-label">Nome</label>
+    </div>
+
+    <div class="col-sm-12 mb-3">
+      <input type="text" class="form-control" id="nome" formControlName="nome" placeholder="Nome"
+        [ngClass]="aplicaCssErro('nome')">
+      <div *ngIf="verificaInValidTouched('nome')" class="alert alert-danger" role="alert">
+        Nome é obrigatório
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-12">
+      <label for="email" class="form-label">E-mail</label>
+    </div>
+    <div class="col-sm-12 mb-3">
+      <input type="email" class="form-control" id="email" formControlName="email" placeholder="nome@email.com"
+        [ngClass]="aplicaCssErro('email')">
+      <div *ngIf="verificaInValidTouched('email')" class="alert alert-danger" role="alert">
+        Email é obrigatório
+      </div>
+    </div>
+  </div>
+
+  <div formGroupName="endereco">
+
+    <div class="form-group row ">
+
+      <div class="col-md-3">
+        <label for="cep" class="control-label">Cep</label>
+        <input type="text" class="form-control" formControlName="cep" [ngClass]="aplicaCssErro('endereco.cep')"
+          (blur)="consultaCep()">
+        <div *ngIf="verificaInValidTouched('endereco.cep')" class="alert alert-danger" role="alert">
+          Cep é obrigatório
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <label for="numero" class="control-label">Número</label>
+        <input type="number" class="form-control" formControlName="numero" [ngClass]="aplicaCssErro('endereco.numero')">
+        <div *ngIf="verificaInValidTouched('endereco.numero')" class="alert alert-danger" role="alert">
+          Número é obrigatório
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="complemento" class="control-label">Complemento</label>
+        <input type="text" formControlName="complemento" class="form-control">
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="col-sm-12">
+        <label for="rua" class="form-label">Rua</label>
+      </div>
+
+      <div class="col-sm-12 mb-3">
+        <input type="text" class="form-control" formControlName="rua" name="rua" readonly>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <div class="col-md-5">
+        <label for="bairro"class="control-label">Bairro</label>
+        <input type="text" formControlName="bairro" class="form-control" readonly>
+      </div>
+      <div class="col-md-4">
+        <label for="cidade" class="control-label">Cidade</label>
+        <input type="text" formControlName="cidade" class="form-control" readonly>
+      </div>
+      <div class="col-md-3">
+        <label for="estado" class="control-label">Estado</label>
+        <input type="text" formControlName="estado" class="form-control" readonly>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" (click)="onSubmit()" class="btn btn-primary">Submit</button>
+  <button (click)="resetarFormulario()" class="btn btn-secondary">Resetar</button>
+
+  <form-debug [form]="formulario"></form-debug>
+</form>
